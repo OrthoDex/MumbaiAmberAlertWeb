@@ -29,7 +29,7 @@
         <dt><strong><%= model_class.human_attribute_name(:missing_date) %>:</strong></dt>
         <dd><%= person.missing_date %></dd>
         <dt><strong><%= model_class.human_attribute_name(:photo_url) %>:</strong></dt>
-        <dd><%= image_tag @person.avatar_url(:thumbnail), :width => 100, :height => 100, class: "img-responsive" %></dd>
+        <dd><%= image_tag person.avatar_url(:thumbnail), :width => 100, :height => 100, class: "img-responsive" %></dd>
         <br>
         <dd><%= link_to "View",
                     person_path(person),
