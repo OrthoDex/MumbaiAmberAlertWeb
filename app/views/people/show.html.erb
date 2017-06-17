@@ -1,49 +1,35 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Person -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @person.name %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+  <dd><%= @person.name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:age) %>:</strong></dt>
+  <dd><%= @person.age %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:height) %>:</strong></dt>
+  <dd><%= @person.height %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:remarks) %>:</strong></dt>
+  <dd><%= @person.remarks %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:missing_date) %>:</strong></dt>
+  <dd><%= @person.missing_date %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:police_station) %>:</strong></dt>
+  <dd><%= @person.police_station %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:police_reg_no) %>:</strong></dt>
+  <dd><%= @person.police_reg_no %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:reporter) %>:</strong></dt>
+  <dd><%= @person.reporter %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:photo_url) %>:</strong></dt>
+  <dd><%= @person.photo_url %></dd>
+</dl>
 
-<p>
-  <strong>Age:</strong>
-  <%= @person.age %>
-</p>
-
-<p>
-  <strong>Height:</strong>
-  <%= @person.height %>
-</p>
-
-<p>
-  <strong>Remarks:</strong>
-  <%= @person.remarks %>
-</p>
-
-<p>
-  <strong>Missing date:</strong>
-  <%= @person.missing_date %>
-</p>
-
-<p>
-  <strong>Police station:</strong>
-  <%= @person.police_station %>
-</p>
-
-<p>
-  <strong>Police reg no:</strong>
-  <%= @person.police_reg_no %>
-</p>
-
-<p>
-  <strong>Reporter:</strong>
-  <%= @person.reporter %>
-</p>
-
-<p>
-  <strong>Photo url:</strong>
-  <%= @person.photo_url %>
-</p>
-
-<%= link_to 'Edit', edit_person_path(@person) %> |
-<%= link_to 'Back', people_path %>
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              people_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_person_path(@person), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              person_path(@person),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>

@@ -1,62 +1,95 @@
-<%= form_with(model: person, local: true) do |form| %>
-  <% if person.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(person.errors.count, "error") %> prohibited this person from being saved:</h2>
+<%= form_for @person, :html => { :class => "form-horizontal person" } do |f| %>
 
-      <ul>
-      <% person.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <% if @person.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@person.errors.count, "error") %> prohibited this person from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @person.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name, id: :person_name %>
+  <div class="form-group">
+    <%= f.label :name, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.text_field :name, :class => 'form-control', :placeholder => "Enter Full Name of Missing Person" %>
+    </div>
+    <%=f.error_span(:name) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :age, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.text_field :age, :class => 'form-control', :placeholder => "Enter age of Missing Person" %>
+    </div>
+    <%=f.error_span(:age) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :height, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.number_field :height, :class => 'form-control', :placeholder => "Enter height of missing person" %>
+    </div>
+    <%=f.error_span(:height) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :remarks, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.text_area :remarks, :rows => 8, :class => 'form-control', :placeholder => "Enter details of the missin person, such as any birthmarks, last place seen, clothes worn etc." %>
+    </div>
+    <%=f.error_span(:remarks) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :missing_date, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.text_field :missing_date, :class => 'form-control', :placeholder => "Select date and time at which person went missing." %>
+    </div>
+    <%=f.error_span(:missing_date) %>
+    <script type="text/javascript">
+            $(function () {
+                $('#person_missing_date').datetimepicker();
+            });
+        </script>
+  </div>
+  <div class="form-group">
+    <%= f.label :police_station, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.text_field :police_station, :class => 'form-control', :placeholder => "Enter police station branch where FIR was registered. (Optional)" %>
+    </div>
+    <%=f.error_span(:police_station) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :police_reg_no, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.text_field :police_reg_no, :class => 'form-control', :placeholder => "Enter FIR Number." %>
+    </div>
+    <%=f.error_span(:police_reg_no) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :contact, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.number_field :reporter, :class => 'form-control', :placeholder => "Enter your contact number." %>
+    </div>
+    <%=f.error_span(:reporter) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :photo_url, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.text_field :photo_url, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:photo_url) %>
   </div>
 
-  <div class="field">
-    <%= form.label :age %>
-    <%= form.number_field :age, id: :person_age %>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                people_path, :class => 'btn btn-default' %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :height %>
-    <%= form.number_field :height, id: :person_height %>
-  </div>
-
-  <div class="field">
-    <%= form.label :remarks %>
-    <%= form.text_area :remarks, id: :person_remarks %>
-  </div>
-
-  <div class="field">
-    <%= form.label :missing_date %>
-    <%= form.date_select :missing_date, id: :person_missing_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :police_station %>
-    <%= form.text_field :police_station, id: :person_police_station %>
-  </div>
-
-  <div class="field">
-    <%= form.label :police_reg_no %>
-    <%= form.text_field :police_reg_no, id: :person_police_reg_no %>
-  </div>
-
-  <div class="field">
-    <%= form.label :reporter %>
-    <%= form.text_field :reporter, id: :person_reporter %>
-  </div>
-
-  <div class="field">
-    <%= form.label :photo_url %>
-    <%= form.text_field :photo_url, id: :person_photo_url %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
 <% end %>

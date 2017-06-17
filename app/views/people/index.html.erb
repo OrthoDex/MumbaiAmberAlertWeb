@@ -1,43 +1,36 @@
-<p id="notice"><%= notice %></p>
-
-<h1>People</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Age</th>
-      <th>Height</th>
-      <th>Remarks</th>
-      <th>Missing date</th>
-      <th>Police station</th>
-      <th>Police reg no</th>
-      <th>Reporter</th>
-      <th>Photo url</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
+<%- model_class = Person -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
   <tbody>
     <% @people.each do |person| %>
-      <tr>
-        <td><%= person.name %></td>
-        <td><%= person.age %></td>
-        <td><%= person.height %></td>
-        <td><%= person.remarks %></td>
-        <td><%= person.missing_date %></td>
-        <td><%= person.police_station %></td>
-        <td><%= person.police_reg_no %></td>
-        <td><%= person.reporter %></td>
-        <td><%= person.photo_url %></td>
-        <td><%= link_to 'Show', person %></td>
-        <td><%= link_to 'Edit', edit_person_path(person) %></td>
-        <td><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <tr><%= link_to person.id, person_path(person) %>
+        <dl class="dl-horizontal">
+          <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+          <dd><%= @person.name %></dd>
+          <dt><strong><%= model_class.human_attribute_name(:age) %>:</strong></dt>
+          <dd><%= @person.age %></dd>
+          <dt><strong><%= model_class.human_attribute_name(:height) %>:</strong></dt>
+          <dd><%= @person.height %></dd>
+          <dt><strong><%= model_class.human_attribute_name(:remarks) %>:</strong></dt>
+          <dd><%= @person.remarks %></dd>
+          <dt><strong><%= model_class.human_attribute_name(:missing_date) %>:</strong></dt>
+          <dd><%= @person.missing_date %></dd>
+          <dt><strong><%= model_class.human_attribute_name(:police_station) %>:</strong></dt>
+          <dd><%= @person.police_station %></dd>
+          <dt><strong><%= model_class.human_attribute_name(:police_reg_no) %>:</strong></dt>
+          <dd><%= @person.police_reg_no %></dd>
+          <dt><strong><%= model_class.human_attribute_name(:reporter) %>:</strong></dt>
+          <dd><%= @person.reporter %></dd>
+          <dt><strong><%= model_class.human_attribute_name(:photo_url) %>:</strong></dt>
+          <dd><%= @person.photo_url %></dd>
+        </dl>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Person', new_person_path %>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_person_path,
+            :class => 'btn btn-primary' %>
