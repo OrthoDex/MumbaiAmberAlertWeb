@@ -5,7 +5,7 @@ class CreatePeople < ActiveRecord::Migration[5.1]
       t.integer :age
       t.integer :height
       t.text :remarks
-      t.date :missing_date
+      t.datetime :missing_date
       t.string :police_station
       t.string :police_reg_no
       t.bigint :reporter

@@ -2,34 +2,31 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
-<table class="table table-striped">
-  <tbody>
-    <% @people.each do |person| %>
-      <tr><%= link_to person.id, person_path(person) %>
-        <dl class="dl-horizontal">
-          <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-          <dd><%= @person.name %></dd>
-          <dt><strong><%= model_class.human_attribute_name(:age) %>:</strong></dt>
-          <dd><%= @person.age %></dd>
-          <dt><strong><%= model_class.human_attribute_name(:height) %>:</strong></dt>
-          <dd><%= @person.height %></dd>
-          <dt><strong><%= model_class.human_attribute_name(:remarks) %>:</strong></dt>
-          <dd><%= @person.remarks %></dd>
-          <dt><strong><%= model_class.human_attribute_name(:missing_date) %>:</strong></dt>
-          <dd><%= @person.missing_date %></dd>
-          <dt><strong><%= model_class.human_attribute_name(:police_station) %>:</strong></dt>
-          <dd><%= @person.police_station %></dd>
-          <dt><strong><%= model_class.human_attribute_name(:police_reg_no) %>:</strong></dt>
-          <dd><%= @person.police_reg_no %></dd>
-          <dt><strong><%= model_class.human_attribute_name(:reporter) %>:</strong></dt>
-          <dd><%= @person.reporter %></dd>
-          <dt><strong><%= model_class.human_attribute_name(:photo_url) %>:</strong></dt>
-          <dd><%= @person.photo_url %></dd>
-        </dl>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% @people.each do |person| %>
+  <div style="float: left"><%= link_to person.id, person_path(person) %>
+    <dl class="dl-horizontal">
+      <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+      <dd><%= person.name %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:age) %>:</strong></dt>
+      <dd><%= person.age %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:height) %>:</strong></dt>
+      <dd><%= person.height %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:remarks) %>:</strong></dt>
+      <dd><%= person.remarks %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:missing_date) %>:</strong></dt>
+      <dd><%= person.missing_date %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:police_station) %>:</strong></dt>
+      <dd><%= person.police_station %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:police_reg_no) %>:</strong></dt>
+      <dd><%= person.police_reg_no %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:reporter) %>:</strong></dt>
+      <dd><%= person.reporter %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:photo_url) %>:</strong></dt>
+      <dd><%= person.photo_url %></dd>
+    </dl>
+  </div>
+<% end %>
+<hr style="clear:left">
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_person_path,

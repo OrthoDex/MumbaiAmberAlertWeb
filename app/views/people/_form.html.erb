@@ -16,39 +16,37 @@
   <% end %>
 
   <div class="form-group">
-    <%= f.label :name, :class => 'control-label col-sm-2' %>
     <div class="col-sm-10">
-      <%= f.text_field :name, :class => 'form-control', :placeholder => "Enter Full Name of Missing Person" %>
+      <%= f.label :name %>
+      <%= f.text_field :name, :class => 'form-control', :placeholder => "Enter Full Name of Missing Person", :required => true %>
+      <%=f.error_span(:name) %>
     </div>
-    <%=f.error_span(:name) %>
   </div>
   <div class="form-group">
-    <%= f.label :age, :class => 'control-label col-sm-2' %>
     <div class="col-sm-10">
-      <%= f.text_field :age, :class => 'form-control', :placeholder => "Enter age of Missing Person" %>
+      <%= f.label :age %>
+      <%= f.number_field :age, :class => 'form-control', :placeholder => "Enter age of Missing Person", :min => 0, :max => 120, :maxlength => 3 %>
+      <%=f.error_span(:age) %>
     </div>
-    <%=f.error_span(:age) %>
   </div>
   <div class="form-group">
-    <%= f.label :height, :class => 'control-label col-sm-2' %>
     <div class="col-sm-10">
-      <%= f.number_field :height, :class => 'form-control', :placeholder => "Enter height of missing person" %>
+      <%= f.label :height %>
+      <%= f.number_field :height, :class => 'form-control', :placeholder => "Enter height of missing person (in cm)", :max => 999, :maxlength => 3 %>
+      <%=f.error_span(:height) %>
     </div>
-    <%=f.error_span(:height) %>
   </div>
   <div class="form-group">
-    <%= f.label :remarks, :class => 'control-label col-sm-2' %>
     <div class="col-sm-10">
+      <%= f.label :remarks %>
       <%= f.text_area :remarks, :rows => 8, :class => 'form-control', :placeholder => "Enter details of the missin person, such as any birthmarks, last place seen, clothes worn etc." %>
     </div>
-    <%=f.error_span(:remarks) %>
   </div>
   <div class="form-group">
-    <%= f.label :missing_date, :class => 'control-label col-sm-2' %>
     <div class="col-sm-10">
+      <%= f.label :missing_date %>
       <%= f.text_field :missing_date, :class => 'form-control', :placeholder => "Select date and time at which person went missing." %>
     </div>
-    <%=f.error_span(:missing_date) %>
     <script type="text/javascript">
             $(function () {
                 $('#person_missing_date').datetimepicker();
@@ -56,32 +54,28 @@
         </script>
   </div>
   <div class="form-group">
-    <%= f.label :police_station, :class => 'control-label col-sm-2' %>
     <div class="col-sm-10">
+      <%= f.label :police_station %>
       <%= f.text_field :police_station, :class => 'form-control', :placeholder => "Enter police station branch where FIR was registered. (Optional)" %>
     </div>
-    <%=f.error_span(:police_station) %>
   </div>
   <div class="form-group">
-    <%= f.label :police_reg_no, :class => 'control-label col-sm-2' %>
     <div class="col-sm-10">
-      <%= f.text_field :police_reg_no, :class => 'form-control', :placeholder => "Enter FIR Number." %>
+      <%= f.label :police_reg_no %>
+      <%= f.text_field :police_reg_no, :class => 'form-control', :placeholder => "Enter FIR Number.(Optional)" %>
     </div>
-    <%=f.error_span(:police_reg_no) %>
   </div>
   <div class="form-group">
-    <%= f.label :contact, :class => 'control-label col-sm-2' %>
     <div class="col-sm-10">
-      <%= f.number_field :reporter, :class => 'form-control', :placeholder => "Enter your contact number." %>
+      <%= f.label :contact %>
+      <%= f.number_field :reporter, :class => 'form-control', :placeholder => "Enter your contact number.", :maxlength => 13, :max => 999999999999 %>
     </div>
-    <%=f.error_span(:reporter) %>
   </div>
   <div class="form-group">
-    <%= f.label :photo_url, :class => 'control-label col-sm-2' %>
     <div class="col-sm-10">
+      <%= f.label :photo_url %>
       <%= f.text_field :photo_url, :class => 'form-control' %>
     </div>
-    <%=f.error_span(:photo_url) %>
   </div>
 
   <div class="form-group">

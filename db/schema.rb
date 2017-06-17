@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20170617102508) do
     t.integer "age"
     t.integer "height"
     t.text "remarks"
-    t.date "missing_date"
+    t.datetime "missing_date"
     t.string "police_station"
     t.string "police_reg_no"
     t.bigint "reporter"

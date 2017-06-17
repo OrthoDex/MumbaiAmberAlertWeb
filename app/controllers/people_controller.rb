@@ -24,6 +24,8 @@ class PeopleController < ApplicationController
   # POST /people
   # POST /people.json
   def create
+
+    params["person"]["missing_date"] = DateTime.strptime(params["person"]["missing_date"], "%m/%d/%Y %l:%M %p")
     @person = Person.new(person_params)
 
     respond_to do |format|

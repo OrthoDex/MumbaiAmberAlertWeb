@@ -51,14 +51,14 @@ div {
 }
 
 .field_with_errors {
-  padding: 2px;
-  background-color: red;
-  display: table;
+  padding: 4px;
+  background-color: #a94442;
+  border-radius: 2px;
 }
 
 #error_explanation {
-  width: 450px;
-  border: 2px solid red;
+  min-width: 450px;
+  border: 2px solid #f2dede;
   padding: 7px 7px 0;
   margin-bottom: 20px;
   background-color: #f0f0f0;
