@@ -26,8 +26,8 @@ class PeopleController < ApplicationController
   def create
 
     params["person"]["missing_date"] = DateTime.strptime(params["person"]["missing_date"], "%m/%d/%Y %l:%M %p")
-    avatar = params["person"]["picture"]
-    params["person"].delete :picture
+    avatar = params["person"]["avatar"]
+    params["person"].delete :avatar
     @person = Person.new(person_params)
     @person.avatar = avatar
 
@@ -74,6 +74,6 @@ class PeopleController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def person_params
-      params.require(:person).permit(:name, :age, :height, :remarks, :missing_date, :police_station, :police_reg_no, :reporter, :picture)
+      params.require(:person).permit(:name, :age, :height, :remarks, :missing_date, :police_station, :police_reg_no, :reporter, :avatar)
     end
 end
