@@ -15,6 +15,10 @@ class PeopleController < ApplicationController
   # GET /people/new
   def new
     @person = Person.new
+    if !params[:user].nil?
+      logger.info "FB user #{params[:user]} navigated to site."
+      check_fb_user_validity
+    end
   end
 
   # GET /people/1/edit
@@ -35,6 +39,8 @@ class PeopleController < ApplicationController
       if @person.save
         if !session[:fb_user].nil?
           send_message_to_fb_user(session[:fb_user], "Thank you! We will send an Amber Alert in Mumbai City shortly. You can also share our post about the same.")
+          url = url_for @person
+          FacebookPagePostWorker.perform_async(@person.name, url, @person.reporter)
         end
         format.html { redirect_to @person, notice: 'Person was successfully created.' }
         format.json { render :show, status: :created, location: @person }
@@ -93,6 +99,18 @@ class PeopleController < ApplicationController
       logger.info "Messenger response: #{response.code} : #{response.body}"
     end
 
+    def check_fb_user_validity
+      logger.info "Checking FB ID Validity"
+      response = HTTParty.get("https://graph.facebook.com/v2.9/#{params[:user]}?access_token=#{Rails.application.secrets.MY_APP_ACCESS_TOKEN}")
+      if response.code == 200
+        logger.info "Valid ID: #{response.body}"
+        session[:fb_user] ||= params[:user]
+      else
+        logger.warn { "Invalid ID: #{response.body}" }
+        session.delete(:fb_user) unless session[:fb_user].nil?
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_person
       @person = Person.find(params[:id])
@@ -100,6 +118,6 @@ class PeopleController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def person_params
-      params.require(:person).permit(:name, :age, :height, :remarks, :missing_date, :police_station, :police_reg_no, :reporter, :avatar)
+      params.require(:person).permit(:name, :age, :height, :remarks, :missing_date, :police_station, :police_reg_no, :reporter, :avatar, :avatar_cache)
     end
 end
