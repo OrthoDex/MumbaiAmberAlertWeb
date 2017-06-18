@@ -4,6 +4,6 @@ class Person < ApplicationRecord
   validates :reporter, length: { in: 10..12 }, numericality: { only_integer: true }
   validates :age, numericality: { only_integer: true }
   validates :height, length: { is: 3 }, numericality: true
-
+  
   mount_uploader :avatar, AvatarUploader
 end

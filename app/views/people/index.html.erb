@@ -16,20 +16,26 @@
 <div class="container">
   <div class="row">
     <% @people.each do |person| %>
-      <div class="col-sm-6">
+      <div class="col-xs-6">
       <dl class="dl-horizontal">
-        <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-        <dd><%= person.name %></dd>
-        <dt><strong><%= model_class.human_attribute_name(:age) %>:</strong></dt>
-        <dd><%= person.age %></dd>
-        <dt><strong><%= model_class.human_attribute_name(:height) %>:</strong></dt>
-        <dd><%= person.height %></dd>
-        <dt><strong><%= model_class.human_attribute_name(:remarks) %>:</strong></dt>
-        <dd><%= person.remarks %></dd>
-        <dt><strong><%= model_class.human_attribute_name(:missing_date) %>:</strong></dt>
-        <dd><%= person.missing_date %></dd>
-        <dt><strong><%= model_class.human_attribute_name(:photo_url) %>:</strong></dt>
-        <dd><%= image_tag person.avatar_url(:thumbnail), :width => 100, :height => 100, class: "img-responsive" %></dd>
+        <div class="row">
+          <div class="col-lg-6">
+            <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+            <dd><%= person.name %></dd>
+            <dt><strong><%= model_class.human_attribute_name(:age) %>:</strong></dt>
+            <dd><%= person.age %></dd>
+            <dt><strong><%= model_class.human_attribute_name(:height) %>:</strong></dt>
+            <dd><%= person.height %></dd>
+            <dt><strong><%= model_class.human_attribute_name(:remarks) %>:</strong></dt>
+            <dd><%= person.remarks %></dd>
+            <dt><strong><%= model_class.human_attribute_name(:missing_date) %>:</strong></dt>
+            <dd><%= person.missing_date %></dd>
+          </div>
+          <div class="col-lg-6">
+            <dt><strong><%= model_class.human_attribute_name(:photo) %>:</strong></dt>
+            <dd><%= image_tag person.avatar_url(:thumbnail), class: "img-responsive" %></dd>
+          </div>
+        </div>
         <br>
         <dd><%= link_to "View",
                     person_path(person),

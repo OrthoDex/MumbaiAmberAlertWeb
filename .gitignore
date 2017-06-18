@@ -18,3 +18,5 @@
 
 .byebug_history
 public/uploads/
+.env
+config/cloudinary.yml

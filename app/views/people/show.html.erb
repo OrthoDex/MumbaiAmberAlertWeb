@@ -1,3 +1,12 @@
+<script>
+(function(d, s, id){
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'Messenger'));
+</script>
 <%- model_class = Person -%>
 <div class="page-header">
   <h1><%=t '.title', :default => @person.name %></h1>
@@ -35,3 +44,14 @@
 <%= link_to t('.back', :default => t("helpers.links.back")),
               people_path, :class => 'btn btn-default'  %>
 </div>
+<script>
+  window.extAsyncInit = function() {
+    // the Messenger Extensions JS SDK is done loading
+    console.log("Messenger Extensions loaded.");
+    MessengerExtensions.requestCloseBrowser(function success() {
+        console.log("successfully closed webview.");
+      }, function error(err) {
+        console.log("Error in closing webview.");
+      });
+  };
+</script>
