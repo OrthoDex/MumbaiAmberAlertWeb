@@ -15,14 +15,16 @@ class FacebookPagePostWorker
     puts "Response: #{response.code} : #{response.body}"
 
     if response.code == 200
-      byebug
       rget = HTTParty.get("https://graph.facebook.com/v2.8/#{JSON.parse(response.body)["id"]}?fields=permalink_url&access_token=#{Rails.application.secrets.MY_APP_ACCESS_TOKEN}")
       puts "Response: #{rget.code} : #{rget.body}"
       if rget.code == 200
-        MessengerSuccessfulRegistrationNotifyWorker.perform_async(user, "Thank you! We will send an Amber Alert in Mumbai City shortly. You can also share our post about it which is published here: #{JSON.parse(rget.body)["permalink_url"]}")
+        page_post_url = JSON.parse(rget.body)["permalink_url"]
+        MessengerSuccessfulRegistrationNotifyWorker.perform_async(user, "Thank you! We will send an Amber Alert in Mumbai City shortly. You can also share our post about it which is published here: #{page_post_url}")
+        MessengerAlertBroadcastWorker.perform_async(page_post_url, name, reporter)
       end
     else
       MessengerSuccessfulRegistrationNotifyWorker.perform_async(user, "Thank you! An error prevented us from publishing a post. However, you can share the details of the person from this url: #{url}.")
+      MessengerAlertBroadcastWorker.perform_async(url, name, reporter)
     end
   end
 end

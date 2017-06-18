@@ -1,6 +1,6 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
-
+  protect_from_forgery except: :subscribe
   # GET /people
   # GET /people.json
   def index
@@ -78,6 +78,13 @@ class PeopleController < ApplicationController
     psid = params["psid"]
     logger.info "Facebook Messenger psid : #{psid}"
     session[:fb_user] = psid
+    render json: 200
+  end
+
+  def subscribe
+    logger.info "Got subscriber id #{params["subscriber_id"]}"
+    redis = Redis.new(url: ENV["REDISCLOUD_URL"] || 'redis://localhost:6379/14')
+    redis.rpush "subs", params["subscriber_id"]
     render json: 200
   end
 

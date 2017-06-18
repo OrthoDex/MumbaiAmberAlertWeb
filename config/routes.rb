@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   post '/confirm', to: 'people#confirm'
   root 'people#index'
 
+  # Subscriber registration comes from chatbot, hence it's clamped to chatbot domain and the json format.
+  post '/subscribe', to: 'people#subscribe', format: :json, constraints: lambda { |request| request.params["key"] == Rails.application.secrets.subscriber_reg_key }
+
   require 'sidekiq/web'
 
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
