@@ -38,9 +38,8 @@ class PeopleController < ApplicationController
     respond_to do |format|
       if @person.save
         if !session[:fb_user].nil?
-          send_message_to_fb_user(session[:fb_user], "Thank you! We will send an Amber Alert in Mumbai City shortly. You can also share our post about the same.")
           url = url_for @person
-          FacebookPagePostWorker.perform_async(@person.name, url, @person.reporter)
+          FacebookPagePostWorker.perform_async(@person.name, url, @person.reporter, session[:fb_user])
         end
         format.html { redirect_to @person, notice: 'Person was successfully created.' }
         format.json { render :show, status: :created, location: @person }
@@ -83,21 +82,6 @@ class PeopleController < ApplicationController
   end
 
   private
-    def send_message_to_fb_user(sender, text)
-      # Send confirmation through Fb Messenger
-      body = {
-        recipient: {
-          id: sender
-        },
-        message: {
-          text: text
-        }
-      }
-
-      url = "https://graph.facebook.com/v2.6/me/messages?access_token=#{Rails.application.secrets.MY_APP_ACCESS_TOKEN}"
-      response = HTTParty.post(url, body: body)
-      logger.info "Messenger response: #{response.code} : #{response.body}"
-    end
 
     def check_fb_user_validity
       logger.info "Checking FB ID Validity"
