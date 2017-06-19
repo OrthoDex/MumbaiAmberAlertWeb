@@ -26,7 +26,7 @@ class MessengerSuccessfulRegistrationNotifyWorker
       }
     }
 
-    url = "https://graph.facebook.com/v2.6/me/messages?access_token=EAADWnrRtVeEBADWRPiTotqNK3luMi5RtNW647X8Fp2ZAGAtOdxGCPFuIDf9vFq9RIBLyJeeZA6kC9jts6thPUfCjlbZAwz1dMZCQgWlLcwClELY2ro4ZCN2y4ZC6vT6kNFB2JCLZBdLoX7ldszQvwW8etX9ZCiyHtL0zFzt4tZCi3lGyZA7G2wgX6W"
+    url = "https://graph.facebook.com/v2.6/me/messages?access_token=#{Rails.application.secrets.MY_APP_ACCESS_TOKEN}"
     response = HTTParty.post(url, body: body.to_json, headers: { 'Content-Type' => 'application/json' })
     puts "Messenger response: #{response.code} : #{response.body}"
 
