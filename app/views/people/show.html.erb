@@ -10,9 +10,7 @@
 <%- model_class = Person -%>
 <div class="page-header">
   <h1><%=t '.title', :default => @person.name %></h1>
-</div>
-
-<div class="container center col-sm-10">
+</div><div class="container center col-sm-10">
     <div class="row">
       <dl class="dl-horizontal">
       <div class="col-sm-6">
@@ -41,17 +39,45 @@
     </div>
 </div>
 <div class="col-sm-4">
+<% if flash[:notice].nil? %>
+<button type="button" id="btn-found" class="btn btn-success btn-lg" data-toggle="modal" data-target="#found-modal">I found this person!</button>
+<% end %>
 <%= link_to t('.back', :default => t("helpers.links.back")),
               people_path, :class => 'btn btn-default'  %>
 </div>
+
+<!-- Found message modal -->
+<div class="modal fade" id="found-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <p>That is great! Contact <%= @person.reporter %> as soon as possible. Keep the person in sight and safe at all times.
+        </p>
+        <p>
+          If an FIR is registered, then contact the Police Missing Bureau Helpline at 02222621549.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   window.extAsyncInit = function() {
     // the Messenger Extensions JS SDK is done loading
     console.log("Messenger Extensions loaded.");
+    <% if !flash[:notice].nil? %>
     MessengerExtensions.requestCloseBrowser(function success() {
         console.log("successfully closed webview.");
       }, function error(err) {
         console.log("Error in closing webview.");
       });
+    <% end %>
   };
 </script>
