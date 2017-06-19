@@ -19,11 +19,11 @@ class FacebookPagePostWorker
       puts "Response: #{rget.code} : #{rget.body}"
       if rget.code == 200
         page_post_url = JSON.parse(rget.body)["permalink_url"]
-        MessengerSuccessfulRegistrationNotifyWorker.perform_async(user, "Thank you! We will send an Amber Alert in Mumbai City shortly. You can also share our post about it which is published here: #{page_post_url}")
+        MessengerSuccessfulRegistrationNotifyWorker.perform_async(user, "Thank you! We will send an Amber Alert in Mumbai City shortly. You can also share our published post about it.", page_post_url)
         MessengerAlertBroadcastWorker.perform_async(page_post_url, name, reporter)
       end
     else
-      MessengerSuccessfulRegistrationNotifyWorker.perform_async(user, "Thank you! An error prevented us from publishing a post. However, you can share the details of the person from this url: #{url}.")
+      MessengerSuccessfulRegistrationNotifyWorker.perform_async(user, "Thank you! An error prevented us from publishing a post on our Facebook Page. However, you can view and share the details of the person published on our website.", url)
       MessengerAlertBroadcastWorker.perform_async(url, name, reporter)
     end
   end
