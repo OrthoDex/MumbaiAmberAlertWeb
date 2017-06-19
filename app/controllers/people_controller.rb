@@ -37,12 +37,12 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       if @person.save
-        if !session[:fb_user].nil?
-          url = url_for @person
-          FacebookPagePostWorker.perform_async(@person.name, url, @person.reporter, session[:fb_user])
-        end
         format.html { redirect_to @person, notice: 'Person was successfully created.' }
         format.json { render :show, status: :created, location: @person }
+        if !session[:fb_user].nil?
+          url = url_for @person
+          FacebookPagePostWorker.perform_async(@person.name, url, @person.reporter, session[:fb_user], @person.avatar_url)
+        end
       else
         format.html { render :new }
         format.json { render json: @person.errors, status: :unprocessable_entity }

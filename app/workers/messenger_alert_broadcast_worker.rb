@@ -2,11 +2,12 @@ class MessengerAlertBroadcastWorker
   include Sidekiq::Worker
 
   # Send Broadcast Alert to all subscribers. Retrieve Subscriber list from Redis.
-  def perform(url, name, reporter)
+  def perform(url, name, reporter, photo_url)
+    puts "photo url: #{photo_url}"
     redis = Redis.new(url: ENV["REDISCLOUD_URL"] || 'redis://localhost:6379/14')
     subscriber_list = redis.lrange "subs", 0, -1
     subscriber_list.each do |subscriber|
-      MessengerSuccessfulRegistrationNotifyWorker.perform_async(subscriber.to_i, "Amber Alert! #{name} was reported missing. If found, please contact #{reporter}.", url)
+      MessengerSuccessfulRegistrationNotifyWorker.perform_async(subscriber.to_i, "Amber Alert! #{name} was reported missing. If found, please contact #{reporter}.", url, photo_url)
     end
   end
 end
