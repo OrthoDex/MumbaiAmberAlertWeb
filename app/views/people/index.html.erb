@@ -3,10 +3,10 @@
   <div class="page-header">
     <div class="row">
       <div class="col-sm-6">
-        <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+        <h1><%=t '.title', :default => "Missing Persons Database" %></h1>
       </div>
       <div class="col-sm-6">
-        <h1><%= link_to "Register New Missing Person",
+        <h1><%= link_to "Register Missing Person",
                     new_person_path,
                     :class => 'btn btn-info' %></h1>
       </div>
@@ -16,30 +16,31 @@
 <div class="container">
   <div class="row">
     <% @people.each do |person| %>
-      <div class="col-xs-6">
+
+      <div class="col-sm-6">
       <dl class="dl-horizontal">
         <div class="row">
-          <div class="col-lg-6">
-            <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-            <dd><%= person.name %></dd>
-            <dt><strong><%= model_class.human_attribute_name(:age) %>:</strong></dt>
-            <dd><%= person.age %></dd>
-            <dt><strong><%= model_class.human_attribute_name(:height) %>:</strong></dt>
-            <dd><%= person.height %></dd>
-            <dt><strong><%= model_class.human_attribute_name(:remarks) %>:</strong></dt>
-            <dd><%= person.remarks %></dd>
-            <dt><strong><%= model_class.human_attribute_name(:missing_date) %>:</strong></dt>
-            <dd><%= person.missing_date %></dd>
+          <div class="col-xs-6">
+            <h4><strong><%= model_class.human_attribute_name(:name) %>:</strong></h4>
+            <p class="lead"><%= person.name %></p>
+            <h4><strong><%= model_class.human_attribute_name(:age) %>:</strong></h4>
+            <p class="lead"><%= person.age %></p>
+            <h4><strong><%= model_class.human_attribute_name(:height) %>:</strong></h4>
+            <p class="lead"><%= person.height %> cm</p>
+            <h4><strong><%= model_class.human_attribute_name(:remarks) %>:</strong></h4>
+            <p class="lead"><%= person.remarks %></p>
+            <h4><strong><%= model_class.human_attribute_name(:missing_date) %>:</strong></h4>
+            <p class="lead"><%= person.missing_date %></p>
           </div>
-          <div class="col-lg-6">
-            <dt><strong><%= model_class.human_attribute_name(:photo) %>:</strong></dt>
-            <dd><%= image_tag person.avatar_url(:thumbnail), class: "img-responsive" %></dd>
+          <div class="col-xs-6">
+            <h4><strong><%= model_class.human_attribute_name(:photo) %>:</strong></h4>
+            <p class="lead"><%= image_tag person.avatar_url(:thumbnail), class: "img-responsive" %></p>
           </div>
         </div>
         <br>
-        <dd><%= link_to "View",
+        <p class="lead"><%= link_to "View",
                     person_path(person),
-                    :class => 'btn btn-default' %></dd>
+                    :class => 'btn btn-default' %></p>
       </dl>
       </div>
     <% end %>
